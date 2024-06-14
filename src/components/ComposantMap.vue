@@ -110,59 +110,16 @@ export default {
 };
 </script>
 
-<style>
-body, html{
-  margin: 0;
-  padding: 0;
-
+<style scoped>
+#map-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
 }
 
- #map {
-   height: 100%;
-   width: 100%;
-}
-
-html, body{  
-    height: 100%;
-    width: 100%;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
-}
-
-.navbar-brand {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.navbar-links {
-  display: flex;
-}
-
-.navbar-links .btn {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #fff;
-  padding: 10px 15px;
-  border: 2px solid transparent;
-  border-radius: 4px;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-.navbar-links .btn:hover {
-  background-color: #575757;
-  border-color: #fff;
-}
-
-.navbar-links .btn.active {
-  background-color: #444;
-  border-color: #fff;
+#map {
+  height: 100%;
+  width: 100%;
 }
 
 .map-buttons {
@@ -173,18 +130,19 @@ html, body{
   flex-direction: column;
 }
 
-.map-buttons button {
+.map-buttons .btn {
   margin-bottom: 10px;
   padding: 10px 15px;
-  background-color: #fff;
+  background-color: #A0522D; /* Marron automnal */
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  color: white;
   transition: background-color 0.3s;
 }
 
-.map-buttons button:hover {
-  background-color: #f2f2f2;
+.map-buttons .btn:hover {
+  background-color: #7E3F2D; /* Marron foncé */
 }
 
 .marker-cluster-small div {

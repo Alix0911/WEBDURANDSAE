@@ -1,17 +1,15 @@
 <template>
   <div>
+    <nav class="navbar">
+      <router-link class="btn" to="/">Accueil</router-link>
+      <router-link class="btn" to="/geolocalisation">Géolocalisation</router-link>
+      <router-link class="btn" to="/cartographie">Cartographie</router-link>
+      <router-link class="btn" to="/donnees">Données</router-link>
+    </nav>
     <h1>Données</h1>
-    <div id="header">
-    <router-link class="btn" to="/">Accueil</router-link>
-    <router-link class="btn" to="/geolocalisation">Géolocalisation</router-link>
-    <router-link class="btn" to="/cartographie">Cartographie</router-link>
-    <router-link class="btn" to="/donnees">Données</router-link>
-    </div>
+    <input v-model="searchQuery" class="search-bar" placeholder="Rechercher..." />
 
-    <!-- Barre de recherche -->
-    <input v-model="searchQuery" placeholder="Rechercher..." />
-
-    <table>
+    <table class="data-table">
       <thead>
         <tr>
           <th @click="sortBy('id')">ID</th>
@@ -43,8 +41,11 @@
       <button @click="prevPage" :disabled="currentPage === 1">Précédent</button>
       <span>Page {{ currentPage }} sur {{ totalPages }}</span>
       <button @click="nextPage" :disabled="currentPage === totalPages">Suivant</button>
-      <input type="number" v-model.number="pageInput" @keyup.enter="goToPage" min="1" :max="totalPages" />
+      <input type="number" v-model.number="itemsPerPage" min="1" @change="updateItemsPerPage" class="items-per-page"/>
     </div>
+    <footer class="footer">
+      <p>&copy; 2024 Géolocalisation App. Tous droits réservés.</p>
+    </footer>
   </div>
 </template>
 
@@ -161,41 +162,108 @@ export default {
 };
 </script>
 
-<style>
-table {
+<style scoped>
+.navbar {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(90, 109, 124, 0.8);
   width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.navbar .btn {
+  font-weight:bold;
+  color: #000;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: 2px solid transparent;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.navbar .btn:hover {
+  background-color: #7EBE45; /* Vert herbe */
+  border-color: white;
+}
+
+h1 {
+  color: #333333; /* Gris foncé */
+  margin: 20px 0;
+  text-align: center;
+}
+
+.search-bar {
+  display: block;
+  margin: 0 auto 20px;
+  padding: 10px;
+  width: 50%;
+  border: 2px solid rgba(90, 109, 124, 0.8); /* Marron foncé */
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.data-table {
+  width: 90%;
+  margin: 0 auto;
   border-collapse: collapse;
 }
 
-th, td {
-  border: 1px solid #ddd;
+.data-table th, .data-table td {
+  border: 1px solid #ccc;
   padding: 8px;
+  text-align: left;
 }
 
-th {
-  background-color: #f2f2f2;
-  text-align: left;
+.data-table th {
   cursor: pointer;
+  background-color: rgba(90, 109, 124, 0.8); /* Marron automnal */
+  color: white;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: rgba(90, 109, 124, 0.8); /* Marron automnal */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: rgba(90, 109, 124, 0.8); /* Marron foncé */
+}
+
+.pagination span {
+  margin: 0 10px;
+}
+
+.pagination .items-per-page {
+  width: 60px;
+  padding: 5px;
+  text-align: center;
 }
 
 .highlight {
   background-color: yellow;
 }
 
-.pagination {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.pagination button {
-  margin: 0 5px;
-  padding: 5px 10px;
-}
-
-.pagination input {
-  width: 50px;
+.footer {
   text-align: center;
+  padding: 20px;
+  background-color: rgba(90, 109, 124, 0.9);
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 </style>
